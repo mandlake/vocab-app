@@ -20,6 +20,13 @@ const App = () => {
     localStorage.setItem("vocab_words", JSON.stringify(updated));
   };
 
+  // 단어 삭제
+  const handleDeleteWord = (id: string) => {
+    const updated = words.filter((w) => w.id !== id);
+    setWords(updated);
+    localStorage.setItem("vocab_words", JSON.stringify(updated));
+  };
+
   return (
     <div className="max-w-md mx-auto mt-10">
       <h1 className="text-2xl font-bold text-center mb-6">📘 단어장</h1>
@@ -32,14 +39,23 @@ const App = () => {
         ) : (
           <ul className="space-y-2">
             {words.map((word) => (
-              <li key={word.id} className="border rounded p-3">
-                <p className="font-bold">{word.term}</p>
-                <p>{word.meaning}</p>
-                {word.example && (
-                  <p className="text-sm text-gray-600 italic mt-1">
-                    예문: {word.example}
-                  </p>
-                )}
+              <li
+                key={word.id}
+                className="border rounded p-3 flex justify-between items-start">
+                <div>
+                  <p className="font-bold">{word.term}</p>
+                  <p>{word.meaning}</p>
+                  {word.example && (
+                    <p className="text-sm text-gray-600 italic mt-1">
+                      예문: {word.example}
+                    </p>
+                  )}
+                </div>
+                <button
+                  onClick={() => handleDeleteWord(word.id)}
+                  className="text-red-500 hover:underline ml-4">
+                  삭제
+                </button>
               </li>
             ))}
           </ul>
