@@ -53,8 +53,8 @@ const App = () => {
                 </div>
                 <button
                   onClick={() => handleDeleteWord(word.id)}
-                  className="text-red-500 hover:underline ml-4">
-                  삭제
+                  className="text-red-500 hover:font-extrabold ml-4">
+                  X
                 </button>
               </li>
             ))}
