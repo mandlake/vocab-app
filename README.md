@@ -20,9 +20,9 @@
 
 👉 [배포 링크 보기](https://your-vercel-url.vercel.app)
 
-`![image](./public/main.png)`
+![단어장 메인 화면](./public/main.png)
 
-`![image](./public/quiz.png)`
+![퀴즈 화면](./public/quiz.png)
 
 ---
 
