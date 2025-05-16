@@ -13,14 +13,48 @@ const Quiz = ({ words, onExit }: QuizProps) => {
   const [quizIndex, setQuizIndex] = useState(0);
   const [quizType, setQuizType] = useState<"en-ko" | "ko-en">("en-ko");
   const [userAnswer, setUserAnswer] = useState("");
+  const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
+    if (words.length === 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            onExit();
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+
     setQuizList(shuffle(words));
     setQuizType(Math.random() > 0.5 ? "en-ko" : "ko-en");
-  }, [words]);
+  }, [words, onExit]);
+
+  if (words.length === 0) {
+    return (
+      <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-auto text-center">
+        <p className="text-lg font-semibold mb-2 text-rose-500">
+          퀴즈를 준비할 단어가 없습니다.
+        </p>
+        <p className="text-gray-600 text-sm">
+          {countdown}초 후 메인 화면으로 이동합니다...
+        </p>
+      </div>
+    );
+  }
 
   if (quizList.length === 0) {
-    return <p>퀴즈를 준비할 단어가 없습니다.</p>;
+    return (
+      <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md mx-auto text-center">
+        <p className="text-lg font-semibold text-gray-700">
+          퀴즈를 준비 중입니다...
+        </p>
+      </div>
+    );
   }
 
   const current = quizList[quizIndex];
