@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import WordForm from "./components/WordForm";
 import type { Word } from "./types/word";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [words, setWords] = useState<Word[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const saved = localStorage.getItem("vocab_words");
@@ -66,6 +68,11 @@ const App = () => {
             </ul>
           )}
         </section>
+        <button
+          className="mt-8 w-full bg-rose-400 hover:bg-rose-500 text-white py-2 px-4 rounded"
+          onClick={() => navigate("/quiz")}>
+          퀴즈 시작
+        </button>
       </main>
     </div>
   );
