@@ -20,10 +20,6 @@
 
 👉 [배포 링크 보기](https://your-vercel-url.vercel.app)
 
-![단어장 메인 화면](./public/main.png)
-
-![퀴즈 화면](./public/quiz.png)
-
 ---
 
 ## 🔧 기술 스택
