@@ -26,6 +26,14 @@ const App = () => {
     localStorage.setItem("vocab_words", JSON.stringify(updated));
   };
 
+  const handleToggleBookmark = (id: string) => {
+    const updated = words.map((word) =>
+      word.id === id ? { ...word, bookmarked: !word.bookmarked } : word
+    );
+    setWords(updated);
+    localStorage.setItem("vocab_words", JSON.stringify(updated));
+  };
+
   return (
     <div className="min-h-screen bg-rose-100 flex justify-center items-start py-10 px-4">
       <main className="w-full max-w-lg bg-white rounded-2xl shadow-xl p-6">
@@ -44,27 +52,35 @@ const App = () => {
             </p>
           ) : (
             <ul className="grid gap-4">
-              {words.map((word) => (
-                <li
-                  key={word.id}
-                  className="bg-white rounded-xl shadow-md p-4 relative border-l-4 border-rose-400">
-                  <button
-                    onClick={() => handleDeleteWord(word.id)}
-                    className="absolute top-2 right-2 text-red-400 hover:text-red-600 text-sm">
-                    삭제
-                  </button>
-
-                  <p className="text-lg font-semibold text-rose-700">
-                    {word.term}
-                  </p>
-                  <p className="text-gray-800">{word.meaning}</p>
-                  {word.example && (
-                    <p className="text-sm text-gray-500 italic mt-1">
-                      예문: "{word.example}"
+              {[...words]
+                .sort((a, b) => (b.bookmarked ? 1 : 0) - (a.bookmarked ? 1 : 0))
+                .map((word) => (
+                  <li
+                    key={word.id}
+                    className="bg-white rounded-xl shadow-md p-4 relative border-l-4 border-rose-400">
+                    <button
+                      onClick={() => handleDeleteWord(word.id)}
+                      className="absolute top-2 right-2 text-red-400 hover:text-red-600 text-sm">
+                      삭제
+                    </button>
+                    <input
+                      type="button"
+                      onClick={() => handleToggleBookmark(word.id)}
+                      className="text-yellow-400 hover:text-yellow-500 text-xl mr-4 cursor-pointer bg-transparent border-none"
+                      title="중요 단어 표시"
+                      value={word.bookmarked ? "★" : "☆"}
+                    />
+                    <p className="text-lg font-semibold text-rose-700">
+                      {word.term}
                     </p>
-                  )}
-                </li>
-              ))}
+                    <p className="text-gray-800">{word.meaning}</p>
+                    {word.example && (
+                      <p className="text-sm text-gray-500 italic mt-1">
+                        예문: "{word.example}"
+                      </p>
+                    )}
+                  </li>
+                ))}
             </ul>
           )}
         </section>
