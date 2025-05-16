@@ -18,7 +18,7 @@
 
 ## 📸 데모
 
-👉 [배포 링크 보기](https://your-vercel-url.vercel.app)
+👉 [배포 링크 보기](https://vocab-app-psi.vercel.app/)
 
 ![단어장 메인 화면](./public/main.png)
 
