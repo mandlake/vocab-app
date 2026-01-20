@@ -81,11 +81,3 @@ npm run dev
 http://localhost:5173
 
 ```
-
----
-
-## 📄 라이선스
-
-MIT License
-
----
